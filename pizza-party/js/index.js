@@ -3,68 +3,36 @@ const ctx = canvas.getContext("2d");
 
 let sliceImage = new Image();
 sliceImage.src = '../images/pizzanobackground.png';
-
 let plateImage = new Image();
 plateImage.src = '../images/platoremoved.png'
 
-let cutterImage = new Image();
-cutterImage = '../images/pizza cutter.png'
- 
-const pizzas = [];
+
+
+const startButton = 0;
+let score = 0;
+let totalScore = [];
 
 
 
-class Objeto {
-    constructor(x,y,ancho,alto,imagen,ctx){
-        this.x = x;
-        this.y = y;
-        this.ancho = ancho;
-        this.alto = alto;
-        this.imagen = imagen;
-        this.ctx = ctx;
-    }
-    dibujar() {
-        ctx.drawImage(this.imagen,this.x,this.y,this.ancho,this.alto);
-    }
-    borrar() {
-        ctx.clearRect(this.x, this.y, this.ancho, this.alto);
-    }
-}
-
-const cutter = new Objeto(550,550,10,20,cutterImage,ctx);
-
-const plato = new Objeto(440,540,120,60,plateImage, ctx);
-
- const crearPizzas = () => {
-        const randomPositionPizzaX = Math.floor(Math.random() * 920);
-        //const randomPositionPizzaY = Math.floor(Math.random() * 220);
-        const pizza = new Objeto(
-          randomPositionPizzaX,
-          randomPositionPizzaY = 0,
-          80,
-          80,
-          sliceImage,
-          ctx
-        );
-        pizzas.push(pizza);
-      }
-    
-
-const party = () => {
+const detectarColision = () => {
     for (let pizza of pizzas){
-        pizza.borrar();
-        pizza.y +=5;
-        pizza.dibujar();
+    if (pizza.y == 478) {
+      if (plato.x < pizza.x && plato.x + plato.ancho > pizza.x) {
+        score ++;
+        console.log(score);
+            }
+        }
     }
 }
 
 
-  const cargaInicial = () => {
+  const cargaInicial = () => {    
       
     plato.dibujar();
-    cutter.dibujar();
-      setInterval(party,200);
-      setInterval(crearPizzas, 2500);
+    //cutter.dibujar();
+   // setInterval(detectarColision,150);
+    setInterval(caerPizza,200);
+    setInterval(crearPizzas, 2500);
   }
   
   const moverPlato = (e) => {
@@ -78,16 +46,16 @@ const party = () => {
     plato.dibujar();
   };
 
-  const dispararCutter = (e) => {
-    cutter.borrar();
-    if (e.key === "Space") {
-      cutter.y -= 15; 
-    }
-    cutter.dibujar();
-  };
+
+  function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score, 8, 20);
+}
 
 window.addEventListener("load", cargaInicial);
+// Esto de aquí abajo no me funciona cuando comento "load"
+//window.addEventListener("startButton",cargaInicial)
+
 window.addEventListener("keydown", moverPlato);
 //window.addEventListener("keydown", dispararCutter);
-
-

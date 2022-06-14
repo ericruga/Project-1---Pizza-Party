@@ -18,7 +18,8 @@ class Pizza{
     
 }
 
-const pizzas = [];
+let pizza = [];
+let pizzas = [];
 
 const crearPizzas = () => {
     const randomPositionPizzaX = Math.floor(Math.random() * 920);

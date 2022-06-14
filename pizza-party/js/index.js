@@ -14,11 +14,12 @@ let totalScore = [];
 
 
 
+
 const detectarColision = () => {
-    for (let pizza of pizzas){
+
     if (pizza.y == 478) {
       if (plato.x < pizza.x && plato.x + plato.ancho > pizza.x) {
-        score ++;
+        score ++; // emepezar mx aqui
         console.log(score);
             }
         }
